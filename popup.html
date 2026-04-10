@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B站外挂字幕增强版</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 14px;
+      width: 320px;
+      background: #12141a;
+      color: #fff;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    button, select, input[type="range"] {
+      width: 100%;
+    }
+    button, select {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font: inherit;
+    }
+    button {
+      background: #4c8bf5;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.secondary {
+      background: #4b5160;
+    }
+    .status {
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 88px 1fr 42px;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .muted {
+      opacity: 0.84;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    .danger {
+      color: #ffd2d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">B站外挂字幕增强版</div>
+
+  <div class="topbar">
+    <label>
+      <input id="enabled" type="checkbox">
+      启用字幕
+    </label>
+    <span id="siteHint"></span>
+  </div>
+
+  <div class="row">
+    <button id="loadBtn" type="button">选择字幕文件</button>
+    <select id="encoding">
+      <option value="utf-8">UTF-8</option>
+      <option value="gb18030">GB18030</option>
+      <option value="big5">Big5</option>
+      <option value="shift_jis">Shift-JIS</option>
+      <option value="euc-kr">EUC-KR</option>
+    </select>
+  </div>
+
+  <input id="fileInput" type="file" accept=".srt,.vtt,.ass" hidden>
+
+  <div id="status" class="status">未连接到 B 站视频页面</div>
+
+  <div class="grid">
+    <div>字号基准</div>
+    <input id="fontSize" type="range" min="20" max="72" step="1">
+    <div id="fontSizeVal"></div>
+  </div>
+
+  <div class="grid">
+    <div>字重</div>
+    <input id="fontWeight" type="range" min="400" max="900" step="100">
+    <div id="fontWeightVal"></div>
+  </div>
+
+  <div class="grid">
+    <div>底部位置</div>
+    <input id="bottomPercent" type="range" min="3" max="25" step="1">
+    <div id="bottomPercentVal"></div>
+  </div>
+
+  <div class="grid">
+    <div>字幕宽度</div>
+    <input id="widthPercent" type="range" min="50" max="96" step="1">
+    <div id="widthPercentVal"></div>
+  </div>
+
+  <div class="grid">
+    <div>背景透明</div>
+    <input id="bgOpacity" type="range" min="0" max="0.5" step="0.01">
+    <div id="bgOpacityVal"></div>
+  </div>
+
+  <div class="row">
+    <button id="clearBtn" type="button" class="secondary">清空字幕</button>
+    <button id="resetBtn" type="button" class="secondary">恢复默认</button>
+  </div>
+
+  <div class="muted">支持 SRT / VTT / ASS 文本解析。字号会随播放器尺寸自动缩放，切到新视频时会自动清空并关闭旧字幕。</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
